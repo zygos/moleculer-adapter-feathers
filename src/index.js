@@ -60,11 +60,11 @@ module.exports = {
       return this.feathers.remove(id, params)
     },
 
-    feathersSettings() {
-      return this.settings.feathers || {}
+    feathersOptions() {
+      return this.settings.feathers.options || {}
     },
     idParam() {
-      const settings = this.feathersSettings()
+      const settings = this.feathersOptions()
       const idField = settings.idField || 'id'
       const params = {}
       params[idField] = {
@@ -85,12 +85,14 @@ module.exports = {
   },
 
   created() {
-    const name = this.name
-    const blueprint = Object.assign({
-      serviceName: name,
-    }, this.feathersSettings())
+    const self = this
+    const serviceName = this.name
+    const blueprint = {
+      serviceName,
+      options: self.feathersOptions(),
+    }
     services.register(blueprint)
 
-    this.feathers = services.get(name)
+    this.feathers = services.get(serviceName)
   },
 }

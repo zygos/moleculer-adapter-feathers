@@ -5,11 +5,11 @@ function get(serviceName) {
 }
 
 function initialize(blueprint) {
-  let service = null
   const { adapter } = blueprint
 
+  let service = null
   if (typeof adapter === 'function') {
-    service = adapter(blueprint)
+    service = adapter(blueprint.options)
   } else {
     service = adapter
   }
@@ -21,10 +21,8 @@ function initialize(blueprint) {
 
   app.use(blueprint.serviceName, service)
 
-  const serv = app.service(blueprint.serviceName)
-
-  // bind hooks if they are specified
   if (blueprint.hooks) {
+    const serv = app.service(blueprint.serviceName)
     for (const beforeAfter in blueprint.hooks) {
       serv[beforeAfter](blueprint.hooks[beforeAfter])
     }

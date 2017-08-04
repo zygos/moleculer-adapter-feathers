@@ -37,11 +37,13 @@ broker.createService({
     settings: {
         feathers: {
             adapter: feathersKnex,
-            name: "users",
-            Model: new knex({
-                client: "pg",
-                connection: { ... },
-            }),
+            options: {
+                name: "users",
+                Model: new knex({
+                    client: "pg",
+                    connection: { ... },
+                }),
+            },
         },
     },
 });
@@ -64,8 +66,8 @@ broker.start()
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `adapter` | `Object | Function` | **required** | Feathers Knex service adapter. |
-| `hooks` | `Object` | `{}` | Optional object containing before and after hooks. |
-| `*` | `any` | `null` | All the rest of the parameters will be passed when initializing a Feathers service. |
+| `hooks` | `Object` | `{}` | Object containing `before` and `after` hooks. |
+| `options` | `Object` | `{}` | Options passed to Feathers service adapter. |
 
 <!-- AUTO-CONTENT-END:SETTINGS -->
 
@@ -88,18 +90,22 @@ Hooks work just as they do in Feathers. They are passed down to a service in `se
 #### `users.service.js`
 
 ```js
-{
+module.exports = {
+    ...
     settings: {
         feathers: {
             adapter: feathersKnex,
-            name: "users",
             hooks: require('./hooks'),
-            Model: new knex({
-                client: "pg",
-                connection: { ... },
-            }),
+            options: {
+                name: "users",
+                Model: new knex({
+                    client: "pg",
+                    connection: { ... },
+                }),
+            },
         },
     },
+    ...
 }
 ```
 
