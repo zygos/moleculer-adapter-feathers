@@ -1,0 +1,27 @@
+{
+  "name": "moleculer-adapter-feathers",
+  "version": "0.1.0",
+  "description": "Moleculer service mixin adapting Feathers.js services",
+  "main": "index.js",
+  "scripts": {
+    "deps": "npm-check -u"
+  },
+  "keywords": [
+    "microservice",
+    "moleculer",
+    "feathers",
+    "feathersjs"
+  ],
+  "author": "Zygimantas Stancelis",
+  "license": "MIT",
+  "devDependencies": {
+    "npm-check": "5.4.5"
+  },
+  "engines": {
+    "node": ">= 6.x.x"
+  },
+  "dependencies": {
+    "feathers": "^2.1.7",
+    "feathers-hooks": "^2.0.2"
+  }
+}
