@@ -4,8 +4,13 @@ function get(serviceName) {
   return app.service(serviceName)
 }
 
-function initialize(blueprint) {
+function register(blueprint) {
   const { adapter } = blueprint
+
+  if (!adapter) {
+    console.error(`No adapter provided`)
+    return;
+  }
 
   let service = null
   if (typeof adapter === 'function') {
@@ -27,14 +32,6 @@ function initialize(blueprint) {
       serv[beforeAfter](blueprint.hooks[beforeAfter])
     }
   }
-}
-
-function register(blueprint) {
-  if (typeof blueprint === 'function') {
-    blueprint = blueprint(app)
-  }
-
-  initialize(blueprint)
 }
 
 function init(application) {
