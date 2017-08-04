@@ -12,7 +12,7 @@ Moleculer adapter to import feathers services. That includes:
 - RethinkDB
 - Sequalize
 - Waterline
-- [many others](https://docs.feathersjs.com/ecosystem/readme.html)
+- [and many others](https://docs.feathersjs.com/ecosystem/readme.html)
 
 # Install
 
@@ -85,6 +85,8 @@ broker.start()
 
 Hooks work just as they do in Feathers. They are passed down to a service in `settings.feathers.hooks`.
 
+#### `users.service.js`
+
 ```js
 {
     settings: {
@@ -121,6 +123,7 @@ module.exports = {
     after: {
         create: [],
         find: [],
+        get: [],
         update: [],
         patch: [],
         remove: [],
