@@ -88,12 +88,9 @@ module.exports = {
   },
 
   created() {
-    const options = this.feathersOptions()
-    const serviceName = this.name
+    const settings = this.settings.feathers
+    settings.serviceName = this.name
 
-    this.feathers = services.register({
-      serviceName,
-      options,
-    })
+    this.feathers = services.register(settings)
   },
 }

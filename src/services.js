@@ -32,6 +32,7 @@ function register(blueprint = {}) {
       registeredService[hooksType](blueprint.hooks[hooksType])
     }
   }
+
   return registeredService
 }
 
