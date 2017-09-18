@@ -1,6 +1,6 @@
 {
   "name": "moleculer-adapter-feathers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Moleculer service mixin adapting Feathers.js services",
   "main": "index.js",
   "scripts": {

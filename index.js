@@ -1,6 +1,6 @@
 /*
- * moleculer-db
- * Copyright (c) 2017 Ice Services (https://github.com/ice-services/moleculer-addons)
+ * moleculer-adapter-feathers
+ * Copyright (c) 2017 Zygimantas Stancelis (https://github.com/zygos/moleculer-adapter-feathers)
  * MIT Licensed
  */
 

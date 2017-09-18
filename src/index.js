@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require('./feathers')()
+const app = require('./feathers')
 const services = require('./services')
 services.init(app)
 
@@ -63,20 +63,23 @@ module.exports = {
     feathersOptions() {
       return this.settings.feathers.options || {}
     },
+    idField() {
+      return this.feathersOptions().idField || 'id'
+    },
     idParam() {
-      const settings = this.feathersOptions()
-      const idField = settings.idField || 'id'
-      const params = {}
-      params[idField] = {
-        type: 'number',
-        min: 1,
+      const idField = this.idField()
+      return {
+        [idField]: {
+          type: 'number',
+          min: 1,
+        },
       }
-      return params
     },
     mapParams(ctx) {
+      const idField = this.idField()
       return Object
         .keys(ctx.params)
-        .filter(key => key !== 'id')
+        .filter(key => key !== idField)
         .reduce((acc, key) => {
           acc[key] = ctx.params[key]
           return acc
@@ -85,14 +88,12 @@ module.exports = {
   },
 
   created() {
-    const self = this
+    const options = this.feathersOptions()
     const serviceName = this.name
-    const blueprint = {
-      serviceName,
-      options: self.feathersOptions(),
-    }
-    services.register(blueprint)
 
-    this.feathers = services.get(serviceName)
+    this.feathers = services.register({
+      serviceName,
+      options,
+    })
   },
 }

@@ -1,4 +1,6 @@
 const feathers = require('feathers')
 const hooks = require('feathers-hooks')
 
-module.exports = () => feathers().configure(hooks())
+const app = feathers().configure(hooks())
+
+module.exports = app

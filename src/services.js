@@ -1,45 +1,47 @@
-let app;
+let app = null
 
-function get(serviceName) {
-  return app.service(serviceName)
+function castArray(arr) {
+  return (typeof arr !== 'object' || typeof arr.length === 'undefined') ? [arr] : arr
 }
 
-function register(blueprint) {
+function register(blueprint = {}) {
   const { adapter } = blueprint
 
   if (!adapter) {
-    console.error(`No adapter provided`)
+    console.error('No adapter provided')
     return;
   }
 
   let service = null
   if (typeof adapter === 'function') {
     service = adapter(blueprint.options)
-  } else {
+  } else if (adapter) {
     service = adapter
   }
 
   if (!service) {
-    console.error(`Could not initialize ${service.serviceName || 'UNNAMED SERVICE'}`)
+    console.error(`Could not initialize ${service.serviceName || 'UNNAMED SERVICE'}. Have you provided an adapter?`)
     return;
   }
 
-  app.use(blueprint.serviceName, service)
+  app.use(blueprint.serviceName, ...castArray(service))
 
+  const registeredService = app.service(blueprint.serviceName)
   if (blueprint.hooks) {
-    const serv = app.service(blueprint.serviceName)
-    for (const beforeAfter in blueprint.hooks) {
-      serv[beforeAfter](blueprint.hooks[beforeAfter])
+    for (const hooksType in blueprint.hooks) {
+      registeredService[hooksType](blueprint.hooks[hooksType])
     }
   }
+  return registeredService
 }
 
 function init(application) {
-  app = application
+  if (!app) {
+    app = application
+  }
 }
 
 module.exports = {
   init,
   register,
-  get,
 }
