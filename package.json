@@ -7,10 +7,12 @@
     "deps": "npm-check -u"
   },
   "keywords": [
+    "feathers",
+    "feathersjs",
     "microservice",
     "moleculer",
-    "feathers",
-    "feathersjs"
+    "node",
+    "nodejs"
   ],
   "author": "Zygimantas Stancelis",
   "license": "MIT",
@@ -21,7 +23,7 @@
     "node": ">= 6.x.x"
   },
   "dependencies": {
-    "feathers": "^2.1.7",
+    "feathers": "^2.2.0",
     "feathers-hooks": "^2.0.2"
   }
 }
